@@ -1,8 +1,9 @@
 
 module MongoidClassForCollection
-  def mongoid_class_for_collection collection, &blk
+  def self.mongoid_class_for_collection(collection, opts = {}, &blk)
     module_name  = "Id#{MongoidClassForCollection.unique_id}"
-    class_name = collection.to_s.classify
+    class_name = opts[:class_name] || collection.to_s.classify
+  
     eval <<-CLASSDEF
       module #{module_name}
         class #{class_name}
